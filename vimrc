@@ -53,7 +53,8 @@ set splitright
 "line settings
 set cursorline
 hi CursorLine   cterm=NONE ctermbg=black		
-hi CursorLineNR cterm=bold ctermbg=yellow
+hi CursorLineNR cterm=bold ctermbg=black
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 "cursor settings (block in normal, dash in insert)
 let &t_SI = "\<esc>[5 q"
 let &t_SR = "\<esc>[5 q"
