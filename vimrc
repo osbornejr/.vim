@@ -75,4 +75,6 @@ tnoremap <Esc><Esc> <C-\><C-n>
 autocmd TextChanged,TextChangedI <buffer> silent write
 "set noswapfile
 nnoremap < :e ~/.vim/vimrc<CR>
+"hackfix for julia syntax
+set foldmethod=syntax
 
