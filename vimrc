@@ -74,7 +74,7 @@ nnoremap gb :ls<CR>:b<Space>
 "Set up escape to work in terminal mode
 tnoremap <Esc><Esc> <C-\><C-n>
 "autosave buffer, which should allow swp files to be disabled
-autocmd TextChanged,TextChangedI <buffer> silent write
+"autocmd TextChanged,TextChangedI <buffer> silent write
 "set noswapfile
 nnoremap < :e ~/.vim/vimrc<CR>
 "hackfix for julia syntax
