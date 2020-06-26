@@ -79,4 +79,8 @@ tnoremap <Esc><Esc> <C-\><C-n>
 nnoremap < :e ~/.vim/vimrc<CR>
 "hackfix for julia syntax
 set foldmethod=syntax
+"yank terminal line
+nnoremap <C-y> G/><CR>llv$y
+"close buffer and move to previous 
+map <leader>q :bp<bar>vsp<bar>bn<bar>bd<CR>
 
