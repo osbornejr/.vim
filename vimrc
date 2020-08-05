@@ -90,3 +90,4 @@ nmap <leader>c <Plug>SlimeRegionSend
 nmap <leader>c <Plug>SlimeParagraphSend
 "send all code in current buffer to terminal
 nmap <leader>r ggVG<Plug>SlimeRegionSend 
+set backspace=indent,eol,start
