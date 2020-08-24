@@ -47,7 +47,6 @@ set nu "turn line numbers on
 filetype plugin indent on "determine filetype specific settings
 syntax on "syntax highlighting on
 au BufNewFile,BufRead Snakefile set syntax=snakemake
-au BufNewFile,BufRead *-rules set syntax=snakemake
 au BufNewFile,BufRead *.smk set syntax=snakemake
 "window switching remap
 nmap <C-p> <C-w>
