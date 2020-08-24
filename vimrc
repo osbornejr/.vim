@@ -37,6 +37,8 @@ call plug#end()
 let g:slime_target = 'vimterminal'
 "let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
 "let g:slime_dont_ask_default = 1
+let g:slime_no_mappings = 1
+
 
 "Julia cell config
 let g:julia_cell_delimit_cells_by = 'tags'
@@ -79,4 +81,13 @@ tnoremap <Esc><Esc> <C-\><C-n>
 nnoremap < :e ~/.vim/vimrc<CR>
 "hackfix for julia syntax
 set foldmethod=syntax
-
+"yank terminal line
+nnoremap <C-y> G/><CR>llv$y
+"close buffer and move to previous 
+nnoremap <leader>q :bp<bar>vsp<bar>bn<bar>bd<CR>
+"send current chunk (paragraph) to terminal
+nmap <leader>c <Plug>SlimeRegionSend
+nmap <leader>c <Plug>SlimeParagraphSend
+"send all code in current buffer to terminal
+nmap <leader>r ggVG<Plug>SlimeRegionSend 
+set backspace=indent,eol,start
