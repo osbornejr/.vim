@@ -11,7 +11,7 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 
 "add generic REPLS via :terminal command
-Plug 'williamjameshandley/vimteractive'
+"Plug 'williamjameshandley/vimteractive'
 
 "type closing characters automatically
 "Plug 'jiangmiao/auto-pairs'
@@ -37,9 +37,12 @@ call plug#end()
 let g:slime_target = 'vimterminal'
 "let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
 "let g:slime_dont_ask_default = 1
+let g:slime_vimterminal_cmd ="make run"
+let g:slime_vimterminal_config = { "vertical": 1 }
 let g:slime_no_mappings = 1
-
-
+xmap <c-s><c-s> <Plug>SlimeRegionSend
+nmap <c-s><c-s> <Plug>SlimeParagraphSend
+nmap <c-s>s     <Plug>SlimeConfig
 "Julia cell config
 let g:julia_cell_delimit_cells_by = 'tags'
 
