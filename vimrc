@@ -73,6 +73,8 @@ nnoremap wq :wqa!
 :set hidden "buffers don't close when switched"
 "global buffer list
 nnoremap gb :ls<CR>:b<Space>
+"switch to previous buffer
+nnoremap fb :b#<CR>
 "start and end of line configure
 "nnoremap H 0
 "nnoremap L $
