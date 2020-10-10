@@ -41,7 +41,13 @@ let g:slime_vimterminal_cmd ="make run"
 let g:slime_vimterminal_config = { "vertical": 1 }
 let g:slime_no_mappings = 1
 xmap <c-s><c-s> <Plug>SlimeRegionSend
-nmap <c-s><c-s> <Plug>SlimeParagraphSend
+nmap <c-s><c-s> <Plug>SlimeLineSend
+nmap <c-s><c-r> <Plug>SlimeParagraphSend
+"nmap <c-s><c-a> ggVG<Plug>SlimeRegionSend<c-O><c-O>
+nmap <c-s><c-e> kVgg<SlimeRegionSend<c-O><c-O>
+nmap <c-s><c-d> VG<SlimeRegionSend<c-O><c-O>
+nmap <c-s><c-a> :%SlimeSend<cr>
+nmap <c-s><c-w> :SlimeSend0 'weave("'.expand('%').'",doctype = "md2html",out_path = :pwd)'<cr><c-w><c-w><cr><c-w><c-w>
 nmap <c-s>s     <Plug>SlimeConfig
 "Julia cell config
 let g:julia_cell_delimit_cells_by = 'tags'
@@ -90,9 +96,4 @@ set foldmethod=syntax
 nnoremap <C-y> G/><CR>llv$y
 "close buffer and move to previous 
 nnoremap <leader>q :bp<bar>vsp<bar>bn<bar>bd<CR>
-"send current chunk (paragraph) to terminal
-nmap <leader>c <Plug>SlimeRegionSend
-nmap <leader>c <Plug>SlimeParagraphSend
-"send all code in current buffer to terminal
-nmap <leader>r ggVG<Plug>SlimeRegionSend 
 set backspace=indent,eol,start
