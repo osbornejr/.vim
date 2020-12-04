@@ -49,10 +49,15 @@ nmap <c-s><c-d> VG<SlimeRegionSend<c-O><c-O>
 nmap <c-s><c-a> :%SlimeSend<cr>
 nmap <c-s><c-i> :SlimeSend0 'include("'.expand('%').'")'<cr><c-w><c-w><cr><c-w><c-w>
 nmap <c-s><c-w> :SlimeSend0 'weave("'.expand('%').'",doctype = "md2html")'<cr><c-w><c-w><cr><c-w><c-w>
+nmap <c-s><c-w>c :SlimeSend0 'weave("'.expand('%').'",doctype = "md2html",cache = :user)'<cr><c-w><c-w><cr><c-w><c-w>
+nmap <c-s><c-t> :SlimeSend0 '@time '.getline(".") <cr><c-w><c-w><cr><c-w><c-w> 
 nmap <c-s>s     <Plug>SlimeConfig
 "Julia cell config
 let g:julia_cell_delimit_cells_by = 'tags'
 
+
+"window navigation
+tnoremap <c-w><c-w> i<c-e><c-u><c-w><c-w>
 set path+=**
 set wildmenu
 set nu "turn line numbers on
@@ -98,3 +103,5 @@ nnoremap <C-y> G/><CR>llv$y
 "close buffer and move to previous 
 nnoremap <leader>q :bp<bar>vsp<bar>bn<bar>bd<CR>
 set backspace=indent,eol,start
+"set folding colour
+hi Folded ctermbg=black
