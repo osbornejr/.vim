@@ -53,23 +53,28 @@ Plug 'jpalardy/vim-slime'
 call plug#end()
 
 
-let s:VIMROOT = $HOME."/.vim"
+"let s:VIMROOT = $HOME."/.vim"
 
 " Create necessary folders if they don't already exist.
-if exists("*mkdir")
-    silent! call mkdir(s:VIMROOT, "p")
-    silent! call mkdir(s:VIMROOT."/swap", "p")
-    silent! call mkdir(s:VIMROOT."/undo", "p")
-    silent! call mkdir(s:VIMROOT."/backup", "p")
-else
-    echo "Error: Create the directories ".s:VIMROOT."/, ".s:VIMROOT."/undo/," ".s:VIMROOT."/backup/, and ".s:VIMROOT."/swap/first."
-    exit
-endif
+"if exists("*mkdir")
+"    silent! call mkdir(s:VIMROOT, "p")
+"    silent! call mkdir(s:VIMROOT."/swap", "p")
+"    silent! call mkdir(s:VIMROOT."/undo", "p")
+"    silent! call mkdir(s:VIMROOT."/backup", "p")
+"else
+"    echo "Error: Create the directories ".s:VIMROOT."/, ".s:VIMROOT."/undo/," ".s:VIMROOT."/backup/, and ".s:VIMROOT."/swap/first."
+"    exit
+"endif
 
 "setup global directories for backups, swapfiles and undo history
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+"set backupdir=~/.vim/backup//
+"set directory=~/.vim/swap//
+"set undofile 
+"set undodir=~/.vim/undo//
+
+"set persistent undo
+set undolevels=1000
+set undoreload=10000
 
 "airline config
 "let g:airline_theme='term'
@@ -100,20 +105,23 @@ let g:julia_cell_delimit_cells_by = 'tags'
 
 "latex-vim specific: compile latex document to pdf preview
 "set global mark on root tex file
-nnoremap <LocalLeader>L mL:w<CR> :Dispatch! latexmk -pdf -pv -halt-on-error % && osascript -e 'activate application "iTerm"';<CR>
-nnoremap <LocalLeader>l mP:w<CR>`L :Dispatch! latexmk -pdf -pv -halt-on-error % && osascript -e 'activate application "iTerm"';<CR>`P
+nnoremap <LocalLeader>L mL:w<CR> :Dispatch! latexmk -pdf -pv -halt-on-error % && osascript -e 'activate application "kitty"';<CR>
+nnoremap <LocalLeader>l mP:w<CR>`L :Dispatch! latexmk -pdf -pv -halt-on-error % && osascript -e 'activate application "kitty"';<CR>`P
 "julia-vim specific: navigate to new git pane (under terminal side)
 "nmap <c-g> 9<c-w><c-w><Esc><Esc>:sbuf git<cr>i
 
 "shortcut to bring up :sbuf (mainly for terminals)
-nmap <LocalLeader>t :sbuf
+nmap <LocalLeader>t :sbuf 
 
 "window navigation from terminal clears line
 tnoremap <c-w><c-w> <c-e><c-u><c-w><c-w>
 "yank text from terminal line on switch window
 tnoremap <c-y><c-w> <C-\><C-n>0f>llv$yi<c-e><c-u><c-w><c-w>
 "jump to another buffer in terminal mode
-tnoremap <c-w><c-g> <c-w>:b
+tnoremap <c-w><c-g> <c-w>:b 
+"close terminal buffer
+tnoremap <c-w><c-b> <c-w>:bd!<CR>
+
 set path+=**
 set wildmenu
 set nu "turn line numbers on
@@ -130,14 +138,16 @@ set cursorline
 hi CursorLine   cterm=NONE ctermbg=black
 hi CursorLineNR cterm=bold ctermbg=black
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+"set comments to be dark grey
+hi Comment ctermfg=DarkGray
 "cursor settings (block in normal, dash in insert)
 let &t_SI = "\<esc>[5 q"
 let &t_SR = "\<esc>[5 q"
 let &t_EI = "\<esc>[2 q"
-"for tmux
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+""for tmux
+"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 let g:vimteractive_vertical = 1
 "easy way to close all windows
 nnoremap wq :wqa!
@@ -151,12 +161,6 @@ nnoremap fb :b#<CR>
 "nnoremap L $
 "Set up escape to work in terminal mode
 tnoremap <Esc><Esc> <C-\><C-n>
-"autosave buffer, which should allow swp files to be disabled
-"autocmd TextChanged,TextChangedI <buffer> silent write
-"set noswapfile
-nnoremap < :e ~/.vim/vimrc<CR>
-"hackfix for julia syntax
-set foldmethod=syntax
 "yank terminal line
 nnoremap <C-y> G/><CR>llv$y
 "close buffer and move to previous
@@ -173,8 +177,6 @@ set shiftwidth=4
 set expandtab
 set smarttab
 
-"set comments to be dark grey
-hi Comment ctermfg=DarkGray
 
 "add navigation remaps to match terminal
 map <C-a> <Esc>^
@@ -187,4 +189,5 @@ imap <C-e> <Esc>A
 autocmd InsertLeave,WinEnter * setlocal foldmethod=syntax
 autocmd InsertEnter,WinLeave * setlocal foldmethod=manual
 
-
+"for markdown, tick todo list line
+map <C-t> 0r<C-k>OK
