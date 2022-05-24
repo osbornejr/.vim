@@ -111,8 +111,8 @@ nnoremap <LocalLeader>l mP:w<CR>`L :Dispatch! latexmk -pdf -pv -halt-on-error % 
 "nmap <c-g> 9<c-w><c-w><Esc><Esc>:sbuf git<cr>i
 
 "shortcut to bring up :sbuf (mainly for terminals)
-nmap <LocalLeader>t :sbuf 
-
+map <c-w><c-t> <C-W>b <C-w>:split 
+tnoremap <c-w><c-t> <C-W>b <C-w>:split 
 "window navigation from terminal clears line
 tnoremap <c-w><c-w> <c-e><c-u><c-w><c-w>
 "yank text from terminal line on switch window
@@ -131,7 +131,7 @@ au BufNewFile,BufRead Snakefile set syntax=snakemake
 au BufNewFile,BufRead *.smk set syntax=snakemake
 "window switching remap
 nmap <C-p> <C-w>
-set splitbelow "new windows open below
+"set splitbelow "new windows open below
 set splitright
 "line settings
 set cursorline
@@ -190,4 +190,12 @@ autocmd InsertLeave,WinEnter * setlocal foldmethod=syntax
 autocmd InsertEnter,WinLeave * setlocal foldmethod=manual
 
 "for markdown, tick todo list line
-map <C-t> 0r<C-k>OK
+map <C-/> 0r<C-k>OK
+
+
+function Close_term()
+    for i in term_list() 
+        exec "bd! ".i 
+    endfor
+endfunction
+
