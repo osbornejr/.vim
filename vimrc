@@ -112,16 +112,20 @@ nnoremap <LocalLeader>l mP:w<CR>`L :Dispatch! latexmk -pdf -pv -halt-on-error % 
 
 "shortcut to bring up :sbuf (mainly for terminals)
 map <c-w><c-t> <C-W>b <C-w>:split 
-tnoremap <c-w><c-t> <C-W>b <C-w>:split 
+
+"remap c-wc-w to switch between top and bottom buffers (editor and repl)
+"(maybe good jus for julia) ?
+nmap <c-w><c-w> <c-w><c-b>
+tnoremap <c-w><c-t> <C-W>b <C-w>:sbuf
 "window navigation from terminal clears line
-tnoremap <c-w><c-w> <c-e><c-u><c-w><c-w>
+tnoremap <c-w><c-w> <c-e><c-u><c-w>t
 "yank text from terminal line on switch window
 tnoremap <c-y><c-w> <C-\><C-n>0f>llv$yi<c-e><c-u><c-w><c-w>
 "jump to another buffer in terminal mode
 tnoremap <c-w><c-g> <c-w>:b 
 "close terminal buffer
 tnoremap <c-w><c-b> <c-w>:bd!<CR>
-
+] activate packages/ProjectFunctions 
 set path+=**
 set wildmenu
 set nu "turn line numbers on
