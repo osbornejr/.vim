@@ -50,6 +50,11 @@ Plug 'jpalardy/vim-slime'
 "edit surrounding characters
 "Plug 'tpope/vim-surround'
 
+"create and modify pluto cells from within vim
+"Plug 'vim-denops/denops.vim'
+"Plug 'hasundue/vim-pluto'
+
+
 call plug#end()
 
 
@@ -104,7 +109,7 @@ nmap <c-s>s     <Plug>SlimeConfig
 let g:julia_cell_delimit_cells_by = 'tags'
 
 "latex-vim specific: compile latex document to pdf preview
-"set global mark on root tex file
+"set global mark on root tex file 
 nnoremap <LocalLeader>L mL:w<CR> :Dispatch! latexmk -pdf -pv -halt-on-error % && osascript -e 'activate application "kitty"';<CR>
 nnoremap <LocalLeader>l mP:w<CR>`L :Dispatch! latexmk -pdf -pv -halt-on-error % && osascript -e 'activate application "kitty"';<CR>`P
 "julia-vim specific: navigate to new git pane (under terminal side)
@@ -115,10 +120,10 @@ map <c-w><c-t> <C-W>b <C-w>:sbuf
 
 "remap c-wc-w to switch between top and bottom buffers (editor and repl)
 "(maybe good jus for julia) ?
-nmap <c-w><c-w> <c-w><c-b>
+"nmap <c-w><c-w> <c-w><c-b>
 tnoremap <c-w><c-t> <C-W>b <C-w>:sbuf 
 "window navigation from terminal clears line
-tnoremap <c-w><c-w> <c-e><c-u><c-w>t
+tnoremap <c-w><c-w> <c-e><c-u><c-w><c-w>
 "yank text from terminal line on switch window
 tnoremap <c-y><c-w> <C-\><C-n>0f>llv$yi<c-e><c-u><c-w><c-w>
 "jump to another buffer in terminal mode
@@ -154,6 +159,7 @@ let &t_EI = "\<esc>[2 q"
 let g:vimteractive_vertical = 1
 "easy way to close all windows
 nnoremap wq :wqa!
+nnoremap wt :call Close_term()<CR>
 :set hidden "buffers don't close when switched"
 "global buffer list
 nnoremap gb :ls<CR>:b<Space>
@@ -181,6 +187,8 @@ set expandtab
 set smarttab
 
 
+
+
 "add navigation remaps to match terminal
 map <C-a> <Esc>^
 imap <C-a> <Esc>I
@@ -192,9 +200,11 @@ imap <C-e> <Esc>A
 autocmd InsertLeave,WinEnter * setlocal foldmethod=syntax
 autocmd InsertEnter,WinLeave * setlocal foldmethod=manual
 
-"for markdown, tick todo list line
-map <C-/> 0r<C-k>OK
+"for markdown, tick todo list line (changes first - to a tick)
+map <C-k> ^r<C-k>OKd0i<tab><Esc>
 
+"method to paste and retain register contents
+vnoremap <leader>p "_dP
 
 function Close_term()
     for i in term_list() 
