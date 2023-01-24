@@ -212,3 +212,5 @@ function Close_term()
     endfor
 endfunction
 
+"to make autocomplete work (investigate)
+set iskeyword+=:
