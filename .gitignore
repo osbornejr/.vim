@@ -1,5 +1,7 @@
 plugged/*
 .netrwhist
 swap
+backup
+undo
 viminfo
 
