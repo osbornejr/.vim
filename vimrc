@@ -10,7 +10,7 @@ call plug#begin()
 
 "info bar at bottom
 Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 
 "Dispatch asyncronously
 Plug 'tpope/vim-dispatch'
@@ -54,32 +54,42 @@ Plug 'jpalardy/vim-slime'
 "Plug 'vim-denops/denops.vim'
 "Plug 'hasundue/vim-pluto'
 
+"adding plugins from failed nix config
+Plug 'joshdick/onedark.vim'
+Plug 'romgrk/doom-one.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'Ron89/thesaurus_query.vim'
+
 
 call plug#end()
 
 
-"let s:VIMROOT = $HOME."/.vim"
+let s:VIMROOT = $HOME."/.vim"
 
 " Create necessary folders if they don't already exist.
-"if exists("*mkdir")
-"    silent! call mkdir(s:VIMROOT, "p")
-"    silent! call mkdir(s:VIMROOT."/swap", "p")
-"    silent! call mkdir(s:VIMROOT."/undo", "p")
-"    silent! call mkdir(s:VIMROOT."/backup", "p")
-"else
-"    echo "Error: Create the directories ".s:VIMROOT."/, ".s:VIMROOT."/undo/," ".s:VIMROOT."/backup/, and ".s:VIMROOT."/swap/first."
-"    exit
-"endif
+if exists("*mkdir")
+    silent! call mkdir(s:VIMROOT, "p")
+    silent! call mkdir(s:VIMROOT."/swap", "p")
+    silent! call mkdir(s:VIMROOT."/undo", "p")
+    silent! call mkdir(s:VIMROOT."/backup", "p")
+else
+    echo "Error: Create the directories ".s:VIMROOT."/, ".s:VIMROOT."/undo/," ".s:VIMROOT."/backup/, and ".s:VIMROOT."/swap/first."
+    exit
+endif
 
 "setup global directories for backups, swapfiles and undo history
-"set backupdir=~/.vim/backup//
-"set directory=~/.vim/swap//
-"set undofile 
-"set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undofile 
+set undodir=~/.vim/undo//
 
 "set persistent undo
 set undolevels=1000
 set undoreload=10000
+
+
+set viminfo+=n~/.vim/viminfo
 
 "airline config
 "let g:airline_theme='term'
@@ -160,7 +170,7 @@ let g:vimteractive_vertical = 1
 "easy way to close all windows
 nnoremap wq :wqa!
 nnoremap wt :call Close_term()<CR>
-:set hidden "buffers don't close when switched"
+:set hidden "buffers don't close when switched
 "global buffer list
 nnoremap gb :ls<CR>:b<Space>
 "switch to previous buffer
@@ -214,3 +224,25 @@ endfunction
 
 "to make autocomplete work (investigate)
 set iskeyword+=:
+
+
+" importing from faield nix addendums
+"load colorschemes
+packloadall
+"set background to terminal colour
+let g:onedark_color_overrides = { "background": { "gui": "#242730", "cterm": "235", "cterm16": "0" }} 
+set termguicolors
+colorscheme onedark
+"line settings
+set cursorline
+hi CursorLine   cterm=NONE ctermbg=black
+hi CursorLineNR cterm=bold ctermbg=black
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+"set comment color manually (TODO not working at present... need to set up full custom colorscheme?)
+hi Comment ctermfg=DarkGray
+"better way to set this (and all vim config)?
+"global buffer list
+nnoremap gb :ls<CR>:b<Space>
+"switch to previous buffer
+nnoremap fb :b#<CR>
+
