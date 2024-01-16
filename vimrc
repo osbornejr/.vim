@@ -54,6 +54,9 @@ Plug 'jpalardy/vim-slime'
 "Plug 'vim-denops/denops.vim'
 "Plug 'hasundue/vim-pluto'
 
+"markdown preview
+Plug 'iamcco/markdown-preview.nvim'
+
 "adding plugins from failed nix config
 Plug 'joshdick/onedark.vim'
 Plug 'romgrk/doom-one.vim'
@@ -64,6 +67,19 @@ Plug 'Ron89/thesaurus_query.vim'
 
 call plug#end()
 
+
+"markdown preview options
+
+""make window open in new window
+"macOS
+function OpenMarkdownPreview (url)
+     execute "silent ! open -a Firefox -n --args --new-window " . a:url
+endfunction
+"linux
+"function OpenMarkdownPreview (url)
+"   execute "silent ! firefox --new-window " . a:url
+"endfunction
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
 
 let s:VIMROOT = $HOME."/.vim"
 
@@ -211,7 +227,9 @@ autocmd InsertLeave,WinEnter * setlocal foldmethod=syntax
 autocmd InsertEnter,WinLeave * setlocal foldmethod=manual
 
 "for markdown, tick todo list line (changes first - to a tick)
-map <C-k> ^r<C-k>OKd0i<tab><Esc>
+"map <C-k> ^r<C-k>OKd0i<tab><Esc>
+map <C-k> ^xi<tab>:white_check_mark:<Esc>
+
 
 "method to paste and retain register contents
 vnoremap <leader>p "_dP
