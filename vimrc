@@ -21,7 +21,7 @@ Plug 'tpope/vim-fugitive'
 "filetree
 Plug 'preservim/nerdtree'
 
-"vim features
+"vimtex features
 Plug 'lervag/vimtex'
 
 "Github integration
@@ -56,6 +56,7 @@ Plug 'jpalardy/vim-slime'
 
 "markdown preview
 Plug 'iamcco/markdown-preview.nvim'
+
 
 "adding plugins from failed nix config
 Plug 'joshdick/onedark.vim'
@@ -225,6 +226,9 @@ imap <C-e> <Esc>A
 "folding and unfolding)
 autocmd InsertLeave,WinEnter * setlocal foldmethod=syntax
 autocmd InsertEnter,WinLeave * setlocal foldmethod=manual
+
+"turn on markdown folding
+let g:markdown_folding = 1
 
 "for markdown, tick todo list line (changes first - to a tick)
 "map <C-k> ^r<C-k>OKd0i<tab><Esc>
